@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Error from "./Error";
 
 const Pregunta = () => {
   //definir la cantidad
@@ -24,6 +25,10 @@ const Pregunta = () => {
 
   return (
     <>
+      {error ? (
+        <Error mensajeError="El presupuesto ingresado es inválido" />
+      ) : null}
+
       <form onSubmit={handleSubmit}>
         <input
           type="number"
