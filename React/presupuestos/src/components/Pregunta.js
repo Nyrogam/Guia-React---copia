@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Error from "./Error";
 
-const Pregunta = () => {
+const Pregunta = ({ setPresupuesto, setRestante }) => {
   //definir la cantidad
 
   const [cantidad, setCantidad] = useState(0);
@@ -21,6 +21,11 @@ const Pregunta = () => {
     }
     // validacion exitosa
     setError(false);
+
+    // cargar presupuestos
+
+    setPresupuesto(cantidad);
+    setRestante(cantidad);
   };
 
   return (
