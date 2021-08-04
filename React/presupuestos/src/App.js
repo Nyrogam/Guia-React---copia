@@ -13,6 +13,11 @@ function App() {
         <h1>Calculador de presupuesto</h1>
         <div className="contenido-principal contenido">
           <Pregunta setPresupuesto={setPresupuesto} setRestante={setRestante} />
+
+          <div className="row">
+            <div className="one-half column"> 1 </div>
+            <div className="one-half column"> 2 </div>
+          </div>
         </div>
       </header>
     </div>
