@@ -1,18 +1,14 @@
 import React from "react";
+import Warframe from "warframe-items";
 
 function App() {
-  const Items = require("warframe-items");
-  const listadoItem = new Items();
+  const itemsWf = new Warframe({ category: ["Warframes"] });
+  // const nombrewf = "Atlas Prime";
+  // const ash = itemsWf.filter((itemsWf) => itemsWf.name === nombrewf);
+  console.log(itemsWf);
+  // console.log(ash);
 
-  console.log(listadoItem);
-
-  console.log("Hola");
-
-  return (
-    <div>
-      <h1>desde app</h1>
-    </div>
-  );
+  return <ul>{itemsWf.map((item) => console.log("hola"))}</ul>;
 }
 
 export default App;
