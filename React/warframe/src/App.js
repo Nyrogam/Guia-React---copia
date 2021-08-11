@@ -24,7 +24,10 @@ function App() {
           return (
             <>
               <li key={uniqueName}>{name}</li>
-              <img src={`https://cdn.warframestat.us/img/${imageName}`}></img>
+              <img
+                src={`https://cdn.warframestat.us/img/${imageName}`}
+                alt="Warframe"
+              ></img>
             </>
           );
         })}
