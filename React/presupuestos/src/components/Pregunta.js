@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Error from "./Error";
 
-const Pregunta = ({ setPresupuesto, setRestante }) => {
+const Pregunta = ({ setPresupuesto, setRestante, setMostrarPregunta }) => {
   //definir la cantidad
 
   const [cantidad, setCantidad] = useState(0);
@@ -26,6 +26,7 @@ const Pregunta = ({ setPresupuesto, setRestante }) => {
 
     setPresupuesto(cantidad);
     setRestante(cantidad);
+    setMostrarPregunta(false);
   };
 
   return (
