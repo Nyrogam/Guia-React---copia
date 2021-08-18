@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import shortid from "shortid";
 import Error from "./Error";
 
-const Formulario = ({ setGasto, setCrearGasto }) => {
+const Formulario = ({ setGasto, setCrearGasto, presupuesto, restante }) => {
   const [nombre, setNombre] = useState("");
   const [valor, setValor] = useState(0);
   const [error, setError] = useState(false);
@@ -13,7 +13,13 @@ const Formulario = ({ setGasto, setCrearGasto }) => {
     e.preventDefault();
 
     // validacion
-    if (valor < 1 || isNaN(valor) || nombre.trim() === "") {
+    if (
+      valor < 1 ||
+      isNaN(valor) ||
+      valor > presupuesto ||
+      valor > restante ||
+      nombre.trim() === ""
+    ) {
       setError(true);
       return;
     }

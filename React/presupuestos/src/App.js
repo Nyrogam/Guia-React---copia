@@ -49,7 +49,12 @@ function App() {
           ) : (
             <div className="row">
               <div className="one-half column">
-                <Formulario setGasto={setGasto} setCrearGasto={setCrearGasto} />
+                <Formulario
+                  setGasto={setGasto}
+                  setCrearGasto={setCrearGasto}
+                  presupuesto={presupuesto}
+                  restante={restante}
+                />
               </div>
               <div className="one-half column">
                 <Listado gastos={gastos} />
