@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
+import { diferenciaYear, porcentajeMarca, porcentajePlan } from "../helper";
 
 const Campo = styled.div`
   display: flex;
@@ -17,10 +18,19 @@ const Select = styled.select`
   padding: 1rem;
   border: 1px solid #e1e1e1;
   --webkit-appearance: none;
+
+  &:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
+  }
 `;
 
 const InputRadio = styled.input`
   margin: 0 1rem;
+  &:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
+  }
 `;
 
 const Boton = styled.button`
@@ -41,6 +51,16 @@ const Boton = styled.button`
   }
 `;
 
+const Error = styled.div`
+  background-color: #ff514d;
+  color: #fff;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+`;
+
 const Formulario = () => {
   // Crear state con los datos
 
@@ -50,11 +70,13 @@ const Formulario = () => {
     plan: "",
   });
 
+  // state del error
+
+  const [error, setError] = useState(false);
+
   // Destructuring de los valores
 
   const { marca, year, plan } = datos;
-
-  // Validacion
 
   // Cargar los datos en el state
 
@@ -64,8 +86,48 @@ const Formulario = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  // Validacion
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (marca.trim() === "" || year.trim() === "" || plan.trim() === "") {
+      setError(true);
+      return;
+    }
+    setError(false);
+  };
+
+  // Precio base
+
+  let resultado = 2000;
+
+  // Cargar diferencia de años
+
+  const diferencia = diferenciaYear(year);
+
+  // Restar 3% por cada año
+
+  resultado -= (diferencia * 3 * resultado) / 100;
+
+  // Multiplicar por porcentaje de marca
+
+  resultado = porcentajeMarca(marca) * resultado;
+
+  // Cargar porcentaje por plan
+
+  const porcentaje = porcentajePlan(plan);
+
+  // Multiplicar por porcentaje de Plan
+
+  resultado = parseFloat(porcentaje * resultado).toFixed(2);
+
+  console.log(resultado);
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
+      {error ? <Error> Todos los campos son obligatorios </Error> : null}
       <Campo>
         <Label>Marca</Label>
         <Select name="marca" value={marca} onChange={cargarInformacion}>
@@ -110,7 +172,7 @@ const Formulario = () => {
         />{" "}
         Completo
       </Campo>
-      <Boton type="button">Cotizar</Boton>
+      <Boton type="submit">Cotizar</Boton>
     </form>
   );
 };
