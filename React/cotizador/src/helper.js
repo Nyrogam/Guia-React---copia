@@ -34,3 +34,9 @@ export function porcentajeMarca(marca) {
 export function porcentajePlan(plan) {
   return plan === "basico" ? 1.2 : 1.5;
 }
+
+// Cambiar primer caracter a mayúscula
+
+export function convertirMayus(texto) {
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+}

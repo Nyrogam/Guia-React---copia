@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { diferenciaYear, porcentajeMarca, porcentajePlan } from "../helper";
 
+// Estilos para el formulario
+
 const Campo = styled.div`
   display: flex;
   margin-bottom: 1rem;
@@ -11,6 +13,8 @@ const Campo = styled.div`
 const Label = styled.label`
   flex: 0 0 100px;
 `;
+
+// Estilo para Marca y Año
 
 const Select = styled.select`
   display: block;
@@ -25,6 +29,8 @@ const Select = styled.select`
   }
 `;
 
+// Estilo para Plan
+
 const InputRadio = styled.input`
   margin: 0 1rem;
   &:hover {
@@ -32,6 +38,8 @@ const InputRadio = styled.input`
     background-color: whitesmoke;
   }
 `;
+
+// Estilo de boton "Cotizar"
 
 const Boton = styled.button`
   background-color: #00838f;
@@ -51,6 +59,8 @@ const Boton = styled.button`
   }
 `;
 
+// Estilo de mensaje de error
+
 const Error = styled.div`
   background-color: #ff514d;
   color: #fff;
@@ -61,7 +71,7 @@ const Error = styled.div`
   font-weight: bold;
 `;
 
-const Formulario = () => {
+const Formulario = ({ setResumen }) => {
   // Crear state con los datos
 
   const [datos, setDatos] = useState({
@@ -74,7 +84,7 @@ const Formulario = () => {
 
   const [error, setError] = useState(false);
 
-  // Destructuring de los valores
+  // Destructuring de los valores de datos
 
   const { marca, year, plan } = datos;
 
@@ -96,34 +106,37 @@ const Formulario = () => {
       setError(true);
       return;
     }
+
     setError(false);
+
+    // Precio base
+
+    let resultado = 2000;
+
+    // Cargar diferencia de años
+
+    const diferencia = diferenciaYear(year);
+
+    // Restar 3% por cada año
+
+    resultado -= (diferencia * 3 * resultado) / 100;
+
+    // Multiplicar por porcentaje de marca
+
+    resultado = porcentajeMarca(marca) * resultado;
+
+    // Cargar porcentaje por plan
+
+    const porcentaje = porcentajePlan(plan);
+
+    // Multiplicar por porcentaje de Plan
+
+    resultado = parseFloat(porcentaje * resultado).toFixed(2);
+
+    // Pasar datos a otros componentes
+
+    setResumen({ cotizacion: resultado, datos });
   };
-
-  // Precio base
-
-  let resultado = 2000;
-
-  // Cargar diferencia de años
-
-  const diferencia = diferenciaYear(year);
-
-  // Restar 3% por cada año
-
-  resultado -= (diferencia * 3 * resultado) / 100;
-
-  // Multiplicar por porcentaje de marca
-
-  resultado = porcentajeMarca(marca) * resultado;
-
-  // Cargar porcentaje por plan
-
-  const porcentaje = porcentajePlan(plan);
-
-  // Multiplicar por porcentaje de Plan
-
-  resultado = parseFloat(porcentaje * resultado).toFixed(2);
-
-  console.log(resultado);
 
   return (
     <form onSubmit={handleSubmit}>
