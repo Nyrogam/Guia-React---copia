@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Formulario from "./components/Formulario";
 import Resultado from "./components/Resultado";
 import Resumen from "./components/Resumen";
+import Spinner from "./components/Spinner";
 import styled from "@emotion/styled";
 
 const Contenedor = styled.div`
@@ -27,6 +28,8 @@ function App() {
     },
   });
 
+  const [carga, setCarga] = useState(false);
+
   // Destructuring de los datos para pasarlo a otros componentes
 
   const { cotizacion, datos } = resumen;
@@ -35,9 +38,14 @@ function App() {
     <Contenedor>
       <Header titulo="Cotizador de Seguros" />
       <ContenedorFormulario>
-        <Formulario setResumen={setResumen} />
-        <Resumen datos={datos} />
-        <Resultado cotizacion={cotizacion} />
+        <Formulario setResumen={setResumen} setCarga={setCarga} />
+        {carga ? <Spinner /> : null}
+        {!carga ? (
+          <>
+            <Resumen datos={datos} />
+            <Resultado cotizacion={cotizacion} />{" "}
+          </>
+        ) : null}
       </ContenedorFormulario>
     </Contenedor>
   );

@@ -71,7 +71,7 @@ const Error = styled.div`
   font-weight: bold;
 `;
 
-const Formulario = ({ setResumen }) => {
+const Formulario = ({ setResumen, setCarga }) => {
   // Crear state con los datos
 
   const [datos, setDatos] = useState({
@@ -133,9 +133,17 @@ const Formulario = ({ setResumen }) => {
 
     resultado = parseFloat(porcentaje * resultado).toFixed(2);
 
-    // Pasar datos a otros componentes
+    // Mostrar spinner
 
-    setResumen({ cotizacion: resultado, datos });
+    setCarga(true);
+
+    setTimeout(() => {
+      // Esconder spinner
+      setCarga(false);
+      // Pasar datos a otros componentes
+
+      setResumen({ cotizacion: Number(resultado), datos });
+    }, 2000);
   };
 
   return (
