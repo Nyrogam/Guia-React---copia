@@ -3,15 +3,22 @@ import Warframe from "warframe-items";
 
 function App() {
   const [nombre, setNombre] = useState("");
+  const warframetest = "Warframes";
+  const testwarframes = new Warframe().filter(
+    (arma) => arma.category === "Primary"
+  );
   const warframes = new Warframe().filter(
     (item) =>
-      item.category === "Warframes" &&
+      item.category === `${warframetest}` &&
       item.productCategory === "Suits" &&
-      (item.name.toLowerCase().includes(nombre) ||
-        item.description.toLowerCase().includes(nombre))
+      item.name.toLowerCase().includes(nombre)
   );
 
-  console.log(warframes);
+  testwarframes.map(({ name }) => {
+    console.log({ name });
+  });
+
+  console.log(testwarframes);
   return (
     <>
       <input
