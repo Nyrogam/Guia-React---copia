@@ -6,11 +6,32 @@ const ContenedorFrase = styled.div`
   border-radius: 0.5rem;
   background-color: #fff;
   max-width: 800px;
-  margin-top: 10rem;
+  margin-top: 1rem;
   box-shadow: 0px 0px 8px 3px #000;
 
-  @media (max-width: 340px) {
-    margin-top: 15rem;
+  h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    position: relative;
+    padding-left: 4rem;
+
+    &::before {
+      content: open-quote;
+      font-size: 8rem;
+      color: black;
+      position: absolute;
+      left: -1rem;
+      top: -2rem;
+    }
+  }
+
+  p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: right;
+    color: #666;
+    margin-top: 2rem;
   }
 `;
 
