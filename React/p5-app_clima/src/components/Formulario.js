@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Error from "./Error";
 
 const Formulario = ({ busqueda, setBusqueda, setConsulta }) => {
   const [error, setError] = useState(false);
@@ -34,12 +35,7 @@ const Formulario = ({ busqueda, setBusqueda, setConsulta }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {error ? (
-        <p className=" error red darken-3">
-          {" "}
-          Todos los campos son obligatorios
-        </p>
-      ) : null}
+      {error ? <Error mensaje="Todos los campos son obligatorios" /> : null}
       <div className="input-field col s12">
         <select name="pais" id="pais" value={pais} onChange={handleChange}>
           <option value="">Seleccione un país</option>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Formulario from "./components/Formulario";
+import Clima from "./components/Clima";
+import Error from "./components/Error";
 
 function App() {
   // state principal
@@ -14,7 +16,9 @@ function App() {
 
   const [consulta, setConsulta] = useState(false);
 
-  const [clima, setClima] = useState([]);
+  const [resultado, setResultado] = useState({});
+
+  const [error, setError] = useState(false);
 
   //destructuring
 
@@ -28,11 +32,26 @@ function App() {
         console.log(url);
         const api = await fetch(url);
         const frase = await api.json();
-        console.log(frase);
+        setResultado(frase);
+        setConsulta(false);
+
+        if (resultado.cod === "404") {
+          setError(true);
+        } else {
+          setError(false);
+        }
       }
     };
     consultaAPI();
-  }, [consulta, ciudad, pais]);
+  }, [consulta, ciudad, pais, resultado, setError]);
+
+  let componente;
+
+  if (error) {
+    componente = <Error mensaje="No hay resultados" />;
+  } else {
+    componente = <Clima resultado={resultado} />;
+  }
 
   return (
     <>
@@ -48,7 +67,7 @@ function App() {
                 setConsulta={setConsulta}
               />
             </div>
-            <div className="col m6 s12">2</div>
+            <div className="col m6 s12">{componente}</div>
           </div>
         </div>
       </div>
