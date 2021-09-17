@@ -62,7 +62,7 @@ function App() {
           return (
             <>
               <li key={uniqueName}>{name}</li>
-              <Contenedor onClick={handleClick}>
+              <Contenedor onClick={() => handleClick(name)}>
                 <img
                   src={`https://cdn.warframestat.us/img/${imageName}`}
                   alt={`${name}`}
